@@ -27,7 +27,7 @@ libaec:
 libcurl:
 - '8'
 libscotch:
-- 7.0.10
+- 7.0.11
 metis:
 - 5.1.0
 mkl:
