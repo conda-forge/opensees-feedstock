@@ -10,8 +10,10 @@ source:
   sha256: 395d89f97ad0fe2a857e31b045c96badf23ad19ba8ce38f21c5a5d7891091810
 
 build:
-  skip: true  # [not linux]
-  number: 0
+  number: 2
+  missing_dso_whitelist:
+    - "*/libopenblas.*"
+    - "*/libquadmath.*"  # [osx]
 
 requirements:
   build:
@@ -20,52 +22,55 @@ requirements:
     - {{ compiler('fortran') }}
     - {{ stdlib('c') }}
     - cmake
-    - make
-    - openmpi
+    - make  # [unix]
+    - jom  # [win]
+    - llvm-openmp  # [osx]
+    - intel-openmp  # [win]
+    - libgomp  # [linux]
+    - openmpi  # [unix]
   host:
     - python
     - pip
     - setuptools
-    - mumps
+    - libblas * *openblas  # [unix]
+    - libcblas * *openblas  # [unix]
+    - liblapack * *openblas  # [unix]
+    - libblas  # [win]
+    - libcblas  # [win]
+    - liblapack  # [win]
+    - mumps-mpi  # [unix]
+    - scalapack  # [unix]
     - eigen
     - hdf5
-    - openmpi
-    - scalapack
     - tk
-    - mysql
     - zlib
-    - mkl
-    - mkl-include
-    - mkl-devel
     - metis
-    - libscotch
+    - libscotch  # [unix]
     - libaec
     - libcurl
     - openssl
+    - openmpi  # [unix]
   run:
-    - scalapack
     - python
-    - mkl
+    - libblas * *openblas  # [unix]
+    - libcblas * *openblas  # [unix]
+    - liblapack * *openblas  # [unix]
+    - mumps-mpi  # [unix]
+    - scalapack  # [unix]
+    - intel-openmp  # [win]
+    - llvm-openmp  # [osx]
+    - openmpi  # [unix]
 
 test:
   commands:
     - test -f $PREFIX/bin/OpenSees  # [unix]
-
+    - if not exist %LIBRARY_BIN%\\OpenSees.exe exit 1  # [win]
   imports:
     - opensees
 
 about:
   home: https://opensees.berkeley.edu/
   summary: 'Simulate the performance of structural and geotechnical systems subjected to earthquakes'
-  description: |
-    OpenSees is a software framework for developing applications
-     to simulate the performance of structural and geotechnical systems 
-     subjected to earthquakes. 
-     The goal of the OpenSees development is to improve the modeling 
-     and computational simulation in earthquake engineering 
-     through open-source development.
-     The development of OpenSees was sponsored by 
-     the Pacific Earthquake Engineering Research Center.
   license: BSD-4-Clause-UC
   license_family: BSD
   license_file: COPYRIGHT
