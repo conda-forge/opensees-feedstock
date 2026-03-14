@@ -28,7 +28,7 @@ cd build
 :: -----------------------------------------------------------------------------
 :: Configure CMake for Ninja, Flang 21, and Release-only MSVC Run-times
 :: -----------------------------------------------------------------------------
-cmake -G "Ninja" ^
+cmake -G "Ninja" %CMAKE_ARGS% ^
       -DCMAKE_TRY_COMPILE_CONFIGURATION=Release ^
       -DCMAKE_MSVC_RUNTIME_LIBRARY="MultiThreadedDLL" ^
       -DCMAKE_NINJA_FORCE_RESPONSE_FILE=ON ^
@@ -44,7 +44,6 @@ cmake -G "Ninja" ^
       -DPython_FIND_REGISTRY=NEVER ^
       -DPython3_FIND_REGISTRY=NEVER ^
       -DOpenSees_ENABLE_MPI=OFF ^
-      -DCMAKE_Fortran_FLAGS="-std=legacy" ^
       -DCMAKE_CXX_FLAGS="/EHsc /w -DH5_BUILT_AS_DYNAMIC_LIB" ^
       -DCMAKE_EXE_LINKER_FLAGS="@%FWD_SRC_DIR%/aliases.rsp" ^
       -DCMAKE_SHARED_LINKER_FLAGS="@%FWD_SRC_DIR%/aliases.rsp" ^
