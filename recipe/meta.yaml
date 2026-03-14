@@ -23,7 +23,7 @@ requirements:
     - {{ stdlib('c') }}
     - cmake
     - make  # [unix]
-    - jom  # [win]
+    - ninja  # [win]
     - llvm-openmp  # [osx]
     - intel-openmp  # [win]
     - libgomp  # [linux]

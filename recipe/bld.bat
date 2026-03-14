@@ -59,8 +59,12 @@ set "FWD_PREFIX=%PREFIX:\=/%"
 mkdir build
 cd build
 
-:: Configure CMake (Now explicitly forcing Conda's Python to fix OverLinkingError)
-cmake -G "NMake Makefiles JOM" ^
+:: Configure CMake using Ninja with Force Response Files to prevent "Command Line Too Long"
+:: Flang 21 (LLVM 21) requires modern LLVM integration which Ninja handles more reliably than JOM
+cmake -G "Ninja" ^
+      -DCMAKE_NINJA_FORCE_RESPONSE_FILE=ON ^
+      -DCMAKE_Fortran_USE_RESPONSE_FILE_FOR_OBJECTS=ON ^
+      -DCMAKE_Fortran_USE_RESPONSE_FILE_FOR_INCLUDES=ON ^
       -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
       -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%" ^
       -DCMAKE_BUILD_TYPE=Release ^
@@ -78,7 +82,7 @@ cmake -G "NMake Makefiles JOM" ^
       ..
 if errorlevel 1 exit 1
 
-:: Build parallel targets again for speed
+:: Build using Ninja
 cmake --build . --config Release --target OpenSees --parallel %CPU_COUNT%
 if errorlevel 1 exit 1
 
