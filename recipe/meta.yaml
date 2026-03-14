@@ -10,7 +10,7 @@ source:
   sha256: 395d89f97ad0fe2a857e31b045c96badf23ad19ba8ce38f21c5a5d7891091810
 
 build:
-  number: 2
+  number: 3
   missing_dso_whitelist:
     - "*/libopenblas.*"
     - "*/libquadmath.*"  # [osx]
