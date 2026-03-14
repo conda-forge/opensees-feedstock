@@ -8,9 +8,12 @@ package:
 source:
   url: https://github.com/OpenSees/OpenSees/archive/refs/tags/v{{ version }}.tar.gz
   sha256: 395d89f97ad0fe2a857e31b045c96badf23ad19ba8ce38f21c5a5d7891091810
+  patches:
+    - fix_sdm_uc_bounds.patch
 
 build:
   number: 3
+  skip: true  # [py>=311 or not win or (python_impl == 'pypy')]
   missing_dso_whitelist:
     - "*/libopenblas.*"
     - "*/libquadmath.*"  # [osx]
@@ -24,6 +27,8 @@ requirements:
     - cmake
     - make  # [unix]
     - ninja  # [win]
+    - patch  # [unix]
+    - m2-patch  # [win]
     - llvm-openmp  # [osx]
     - intel-openmp  # [win]
     - libgomp  # [linux]
