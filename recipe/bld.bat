@@ -62,6 +62,8 @@ cd build
 :: Configure CMake using Ninja with Force Response Files to prevent "Command Line Too Long"
 :: Flang 21 (LLVM 21) requires modern LLVM integration which Ninja handles more reliably than JOM
 cmake -G "Ninja" ^
+      -DCMAKE_TRY_COMPILE_CONFIGURATION=Release ^
+      -DCMAKE_MSVC_RUNTIME_LIBRARY="MultiThreadedDLL" ^
       -DCMAKE_NINJA_FORCE_RESPONSE_FILE=ON ^
       -DCMAKE_Fortran_USE_RESPONSE_FILE_FOR_OBJECTS=ON ^
       -DCMAKE_Fortran_USE_RESPONSE_FILE_FOR_INCLUDES=ON ^
