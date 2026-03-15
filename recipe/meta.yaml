@@ -13,7 +13,6 @@ source:
 
 build:
   number: 3
-  skip: true  # [py>=311 or not win or (python_impl == 'pypy')]
   missing_dso_whitelist:
     - "*/libopenblas.*"
     - "*/libquadmath.*"  # [osx]
