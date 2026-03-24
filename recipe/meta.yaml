@@ -12,7 +12,7 @@ source:
     - fix_sdm_uc_bounds.patch
 
 build:
-  number: 3
+  number: 4
   missing_dso_whitelist:
     - "*/libopenblas.*"
     - "*/libquadmath.*"  # [osx]
