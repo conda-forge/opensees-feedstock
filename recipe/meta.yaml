@@ -32,9 +32,12 @@ requirements:
     - intel-openmp  # [win]
     - libgomp  # [linux]
     - openmpi  # [unix]
+    - python  # [build_platform != target_platform]
+    - cross-python_{{ target_platform }}  # [build_platform != target_platform]
   host:
     - python
     - libpython  # [py>=315]
+    - llvm-openmp  # [osx and build_platform != target_platform]
     - pip
     - setuptools
     - libblas * *openblas  # [unix]

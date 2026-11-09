@@ -26,6 +26,12 @@ else
     export EXT=".so"
 fi
 
+# When cross-compiling (e.g. osx-arm64 on osx-64), let the build-platform
+# Open MPI wrappers use the target-platform libraries and headers.
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" == "1" ]]; then
+    export OPAL_PREFIX="${PREFIX}"
+fi
+
 # 2. Fix OpenSees hardcoded paths & Python double-linking via Perl
 for mumps_lib in libdmumps libmumps_common libpord libsmumps libcmumps libzmumps; do
     perl -pi -e "s/${mumps_lib}\.a/${mumps_lib}${EXT}/g" $(find . -type f -name "CMakeLists.txt")
